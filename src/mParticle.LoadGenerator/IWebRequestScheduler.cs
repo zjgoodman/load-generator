@@ -5,6 +5,6 @@ namespace mParticle.LoadGenerator
 {
     public interface IWebRequestScheduler
     {
-        Task<List<Task<int>>> MakeThisManyRequestsPerSecond(int numberOfRequestsToMakePerSecond, int numberOfSecondsToRun);
+        Task<List<Task<int>>> MakeThisManyRequestsPerCycle(int numberOfRequestsToMakePerCycle, int numberOfCyclesToRun);
     }
 }

@@ -30,14 +30,14 @@ namespace Tests
             }
         }
         [Fact]
-        public async void TestMakeThisManyRequestsPerSecond()
+        public async void TestMakeThisManyRequestsPerCycle()
         {
             IWebRequestScheduler webRequestScheduler = new WebRequestScheduler(new DummyWebRequestHandler());
             
             int numberOfRequestsToMakePerSecond = 5;
             int numberOfSecondsToRun = 3;
             int expectedTotalNumberOfRequests = numberOfSecondsToRun * numberOfRequestsToMakePerSecond;
-            var responseCodes = await webRequestScheduler.MakeThisManyRequestsPerSecond(numberOfRequestsToMakePerSecond, numberOfSecondsToRun);
+            var responseCodes = await webRequestScheduler.MakeThisManyRequestsPerCycle(numberOfRequestsToMakePerSecond, numberOfSecondsToRun);
             Assert.Equal(expectedTotalNumberOfRequests, responseCodes.Count);
             foreach (var responseCode in responseCodes)
             {

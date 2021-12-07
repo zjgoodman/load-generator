@@ -26,7 +26,7 @@ namespace mParticle.LoadGenerator
         {
             int numberOfRequestsToMakePerSecond = (int) config.TargetRPS;
             int numberOfCyclesToRun = (int) config.NumberOfCyclesToRun;
-            return webRequestScheduler.MakeThisManyRequestsPerSecond(numberOfRequestsToMakePerSecond, numberOfCyclesToRun);
+            return webRequestScheduler.MakeThisManyRequestsPerCycle(numberOfRequestsToMakePerSecond, numberOfCyclesToRun);
         }
     }
 }

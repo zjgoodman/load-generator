@@ -9,7 +9,7 @@ namespace Tests
 {
     class DummyWebRequestScheduler : IWebRequestScheduler
     {
-        public Task<List<Task<int>>> MakeThisManyRequestsPerSecond(int numberOfRequestsToMakePerSecond, int numberOfSecondsToRun)
+        public Task<List<Task<int>>> MakeThisManyRequestsPerCycle(int numberOfRequestsToMakePerSecond, int numberOfSecondsToRun)
         {
             return Task.Run<List<Task<int>>>(() => {
                 var responseCodes = new List<Task<int>>();

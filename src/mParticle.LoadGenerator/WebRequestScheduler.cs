@@ -22,13 +22,13 @@ namespace mParticle.LoadGenerator
             }
             return requests;
         }
-        public Task<List<Task<int>>> MakeThisManyRequestsPerSecond(int numberOfRequestsToMakePerSecond, int numberOfSecondsToRun)
+        public Task<List<Task<int>>> MakeThisManyRequestsPerCycle(int numberOfRequestsToMakePerCycle, int numberOfCyclesToRun)
         {
             return Task.Run<List<Task<int>>>(() => {
                 var responseCodes = new List<Task<int>>();
-                for (int i = 0; i < numberOfSecondsToRun; i++)
+                for (int i = 0; i < numberOfCyclesToRun; i++)
                 {
-                    var requests = MakeRequests(numberOfRequestsToMakePerSecond);
+                    var requests = MakeRequests(numberOfRequestsToMakePerCycle);
                     responseCodes.AddRange(requests);
                     Thread.Sleep(1000);
                 }
