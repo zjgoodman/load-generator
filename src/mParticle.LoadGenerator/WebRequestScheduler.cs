@@ -8,9 +8,11 @@ namespace mParticle.LoadGenerator
     public class WebRequestScheduler : IWebRequestScheduler
     {
         private IWebRequestHandler webRequestHandler;
-        public WebRequestScheduler(IWebRequestHandler webRequestHandler)
+        private int numberOfMilliSecondsToWaitBetweenCycles;
+        public WebRequestScheduler(IWebRequestHandler webRequestHandler, int numberOfMilliSecondsToWaitBetweenCycles)
         {
             this.webRequestHandler = webRequestHandler;
+            this.numberOfMilliSecondsToWaitBetweenCycles = numberOfMilliSecondsToWaitBetweenCycles;
         }
         public List<Task<int>> MakeRequests(int numberOfRequests)
         {
@@ -30,7 +32,7 @@ namespace mParticle.LoadGenerator
                 {
                     var requests = MakeRequests(numberOfRequestsToMakePerCycle);
                     responseCodes.AddRange(requests);
-                    Thread.Sleep(1000);
+                    Thread.Sleep(numberOfMilliSecondsToWaitBetweenCycles);
                 }
                 return responseCodes;
             });

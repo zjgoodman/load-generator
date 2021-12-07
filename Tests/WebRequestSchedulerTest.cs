@@ -19,7 +19,7 @@ namespace Tests
         [Fact]
         public async void TestMakeRequests()
         {
-            WebRequestScheduler webRequestScheduler = new WebRequestScheduler(new DummyWebRequestHandler());
+            WebRequestScheduler webRequestScheduler = new WebRequestScheduler(new DummyWebRequestHandler(), 1);
 
             int numberOfRequestsToMake = 5;
             List<Task<int>> responseCodeResults = webRequestScheduler.MakeRequests(numberOfRequestsToMake);
@@ -32,7 +32,7 @@ namespace Tests
         [Fact]
         public async void TestMakeThisManyRequestsPerCycle()
         {
-            IWebRequestScheduler webRequestScheduler = new WebRequestScheduler(new DummyWebRequestHandler());
+            IWebRequestScheduler webRequestScheduler = new WebRequestScheduler(new DummyWebRequestHandler(), 1);
             
             int numberOfRequestsToMakePerSecond = 5;
             int numberOfSecondsToRun = 3;
