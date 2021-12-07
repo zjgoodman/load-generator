@@ -7,18 +7,20 @@ using System.Collections.Generic;
 
 namespace Tests
 {
+    class DummyWebRequestHandler : IWebRequestHandler
+    {
+        public Task<int> MakeRequest()
+        {
+            return Task.Run<int>(() => 200);
+        }
+    }
     public class WebRequestSchedulerTest
     {
-        WebRequestScheduler webRequestScheduler = new WebRequestScheduler();
-        [Fact]
-        public async void TestMakeRequest()
-        {
-            Task<int> responseCode = webRequestScheduler.MakeRequest();
-            Assert.Equal(200, await responseCode);
-        }
         [Fact]
         public async void TestMakeRequests()
         {
+            WebRequestScheduler webRequestScheduler = new WebRequestScheduler(new DummyWebRequestHandler());
+
             int numberOfRequestsToMake = 5;
             List<Task<int>> responseCodeResults = webRequestScheduler.MakeRequests(numberOfRequestsToMake);
             Assert.Equal(numberOfRequestsToMake, responseCodeResults.Count);
@@ -30,6 +32,8 @@ namespace Tests
         [Fact]
         public async void TestMakeThisManyRequestsPerSecond()
         {
+            WebRequestScheduler webRequestScheduler = new WebRequestScheduler(new DummyWebRequestHandler());
+            
             int numberOfRequestsToMakePerSecond = 5;
             int numberOfSecondsToRun = 3;
             int expectedTotalNumberOfRequests = numberOfSecondsToRun * numberOfRequestsToMakePerSecond;

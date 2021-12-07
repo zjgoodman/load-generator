@@ -7,17 +7,18 @@ namespace mParticle.LoadGenerator
 {
     public class WebRequestScheduler
     {
-        public Task<int> MakeRequest()
+        private IWebRequestHandler webRequestHandler;
+        public WebRequestScheduler(IWebRequestHandler webRequestHandler)
         {
-            // TODO make actual web request
-            return Task.Run<int>(() => 200);
+            this.webRequestHandler = webRequestHandler;
         }
         public List<Task<int>> MakeRequests(int numberOfRequests)
         {
             List<Task<int>> requests = new List<Task<int>>();
             for (int i = 0; i < numberOfRequests; i++)
             {
-                requests.Add(MakeRequest());
+                var request = webRequestHandler.MakeRequest();
+                requests.Add(request);
             }
             return requests;
         }
