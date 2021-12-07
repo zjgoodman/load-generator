@@ -19,7 +19,6 @@ namespace Tests
                     {
                         responseCodes.Add(Task.FromResult(200));
                     }
-                    // Thread.Sleep(1000);
                 }
                 return responseCodes;
             });
@@ -28,12 +27,15 @@ namespace Tests
     public class ProgramTest
     {
         [Fact]
-        public void TestRun()
+        public async void TestStartRequesting()
         {
             Config config = new Config();
             config.TargetRPS = 100;
+            config.NumberOfCyclesToRun = 50;
             IWebRequestScheduler webRequestScheduler = new DummyWebRequestScheduler();
-            Program.Run(config, webRequestScheduler);
+            var results = await Program.StartRequesting(config, webRequestScheduler);
+            int expectedNumberOfResults = (int) (config.NumberOfCyclesToRun * config.TargetRPS);
+            Assert.Equal(expectedNumberOfResults, results.Count);
         }
     }
 }

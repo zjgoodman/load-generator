@@ -12,6 +12,7 @@ namespace mParticle.LoadGenerator
         public uint TargetRPS { get; set; }
         public string AuthKey { get; set; }
         public string UserName { get; set; }
+        public uint NumberOfCyclesToRun = Int32.MaxValue;
 
         /// <summary>
         /// Read the arguments file and, if successful, return the specified arguments values.
