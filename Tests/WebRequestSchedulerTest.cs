@@ -32,7 +32,7 @@ namespace Tests
         [Fact]
         public async void TestMakeThisManyRequestsPerSecond()
         {
-            WebRequestScheduler webRequestScheduler = new WebRequestScheduler(new DummyWebRequestHandler());
+            IWebRequestScheduler webRequestScheduler = new WebRequestScheduler(new DummyWebRequestHandler());
             
             int numberOfRequestsToMakePerSecond = 5;
             int numberOfSecondsToRun = 3;

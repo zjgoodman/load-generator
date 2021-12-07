@@ -7,11 +7,11 @@ namespace Tests
     public class WebRequestHandlerTest
     {
         [Fact]
-        public async void TestMakeRequest()
+        public void TestMakeRequest()
         {
             IWebRequestHandler webRequestHandler = new WebRequestHandler();
             var responseCode = webRequestHandler.MakeRequest();
-            Assert.Equal(null, responseCode);
+            Assert.Null(responseCode);
         }
     }
 }

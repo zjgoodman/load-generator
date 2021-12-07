@@ -22,9 +22,11 @@ namespace mParticle.LoadGenerator
                 return;
             }
         }
-        public static void Run()
+        public static async void Run(Config config, IWebRequestScheduler webRequestScheduler)
         {
-            Console.WriteLine("Hello world");
+            int numberOfRequestsToMakePerSecond = (int) config.TargetRPS;
+            int numberOfSecondsToRun = 10;
+            var results = await webRequestScheduler.MakeThisManyRequestsPerSecond(numberOfRequestsToMakePerSecond, numberOfSecondsToRun);
         }
     }
 }

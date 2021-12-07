@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace mParticle.LoadGenerator
 {
-    public class WebRequestScheduler
+    public class WebRequestScheduler : IWebRequestScheduler
     {
         private IWebRequestHandler webRequestHandler;
         public WebRequestScheduler(IWebRequestHandler webRequestHandler)
