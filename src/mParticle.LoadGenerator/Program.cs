@@ -28,5 +28,12 @@ namespace mParticle.LoadGenerator
             int numberOfCyclesToRun = (int) config.NumberOfCyclesToRun;
             return webRequestScheduler.MakeThisManyRequestsPerCycle(numberOfRequestsToMakePerSecond, numberOfCyclesToRun);
         }
+
+        public static Results GetResults(List<int> responseCodes)
+        {
+            int successCount = responseCodes.FindAll( response => response == 200).Count;
+            int failCount = responseCodes.Count - successCount;
+            return new Results(successCount, failCount);
+        }
     }
 }

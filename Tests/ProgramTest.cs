@@ -37,5 +37,14 @@ namespace Tests
             int expectedNumberOfResults = (int) (config.NumberOfCyclesToRun * config.TargetRPS);
             Assert.Equal(expectedNumberOfResults, results.Count);
         }
+        [Fact]
+        public async void TestGetResults()
+        {
+            List<int> responses = new List<int> {200, 200, 500};
+            Results results = Program.GetResults(responses);
+            Assert.Equal(2, results.SuccessCount);
+            Assert.Equal(1, results.FailCount);
+            Assert.Equal(3, results.TotalCount);
+        }
     }
 }
