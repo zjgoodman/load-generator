@@ -16,11 +16,28 @@ namespace Tests
             Assert.Equal(200, await responseCode);
         }
         [Fact]
-        public void TestMakeRequests()
+        public async void TestMakeRequests()
         {
             int numberOfRequestsToMake = 5;
             List<Task<int>> responseCodeResults = Program.MakeRequests(numberOfRequestsToMake);
             Assert.Equal(numberOfRequestsToMake, responseCodeResults.Count);
+            foreach (var task in responseCodeResults)
+            {
+                Assert.Equal(200, await task);
+            }
+        }
+        [Fact]
+        public async void TestMakeThisManyRequestsPerSecond()
+        {
+            int numberOfRequestsToMakePerSecond = 5;
+            int numberOfSecondsToRun = 3;
+            int expectedTotalNumberOfRequests = numberOfSecondsToRun * numberOfRequestsToMakePerSecond;
+            var responseCodes = await Program.MakeThisManyRequestsPerSecond(numberOfRequestsToMakePerSecond, numberOfSecondsToRun);
+            Assert.Equal(expectedTotalNumberOfRequests, responseCodes.Count);
+            foreach (var responseCode in responseCodes)
+            {
+                Assert.Equal(200, await responseCode);
+            }
         }
     }
 }
