@@ -27,9 +27,9 @@ namespace mParticle.LoadGenerator
             }
             return requests;
         }
-        public Task<List<Task<int>>> MakeThisManyRequestsPerCycle(int numberOfRequestsToMakePerCycle, int numberOfCyclesToRun)
+        public Task<List<int>> MakeThisManyRequestsPerCycle(int numberOfRequestsToMakePerCycle, int numberOfCyclesToRun)
         {
-            return Task.Run<List<Task<int>>>(() => {
+            return Task.Run<List<int>>(() => {
                 var responseCodes = new List<Task<int>>();
                 for (int i = 0; i < numberOfCyclesToRun && continueRunning; i++)
                 {
@@ -38,7 +38,7 @@ namespace mParticle.LoadGenerator
                     responseCodes.AddRange(requests);
                     Thread.Sleep(numberOfMilliSecondsToWaitBetweenCycles);
                 }
-                return responseCodes;
+                return AsyncUtils.FlattenListOfTasks(responseCodes);
             });
         }
 

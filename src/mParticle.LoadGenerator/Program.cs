@@ -30,7 +30,7 @@ namespace mParticle.LoadGenerator
                  // do nothing
             }
         }
-        public static Task<List<Task<int>>> StartRequesting(Config config, IWebRequestScheduler webRequestScheduler)
+        public static Task<List<int>> StartRequesting(Config config, IWebRequestScheduler webRequestScheduler)
         {
             int numberOfRequestsToMakePerSecond = (int) config.TargetRPS;
             int numberOfCyclesToRun = (int) config.NumberOfCyclesToRun;
@@ -63,10 +63,10 @@ namespace mParticle.LoadGenerator
                 e.Cancel = true;
             };
             stopWatch.Start();
-            await StartRequesting(config, scheduler);
+            List<int> responses = await StartRequesting(config, scheduler);
             stopWatch.Stop();
             int secondsElapsed = stopWatch.Elapsed.Seconds;
-            Results results = GetResults(new List<int>()); // TODO
+            Results results = GetResults(responses);
             PrintResults(results, secondsElapsed);
             done = true;
         }

@@ -9,15 +9,15 @@ namespace Tests
 {
     class DummyWebRequestScheduler : IWebRequestScheduler
     {
-        public Task<List<Task<int>>> MakeThisManyRequestsPerCycle(int numberOfRequestsToMakePerSecond, int numberOfSecondsToRun)
+        public Task<List<int>> MakeThisManyRequestsPerCycle(int numberOfRequestsToMakePerSecond, int numberOfSecondsToRun)
         {
-            return Task.Run<List<Task<int>>>(() => {
-                var responseCodes = new List<Task<int>>();
+            return Task.Run<List<int>>(() => {
+                var responseCodes = new List<int>();
                 for (int i = 0; i < numberOfSecondsToRun; i++)
                 {
                     for (int request = 0; request < numberOfRequestsToMakePerSecond; request++)
                     {
-                        responseCodes.Add(Task.FromResult(200));
+                        responseCodes.Add(200);
                     }
                 }
                 return responseCodes;

@@ -8,7 +8,7 @@ namespace mParticle.LoadGenerator
     {
         public Task<int> MakeRequest()
         {
-            return null; // TODO make actual web request
+            return Task.FromResult(200); // TODO
         }
     }
 }

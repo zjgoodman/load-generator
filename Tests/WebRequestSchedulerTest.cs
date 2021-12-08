@@ -41,7 +41,7 @@ namespace Tests
             Assert.Equal(expectedTotalNumberOfRequests, responseCodes.Count);
             foreach (var responseCode in responseCodes)
             {
-                Assert.Equal(200, await responseCode);
+                Assert.Equal(200, responseCode);
             }
         }
     }
