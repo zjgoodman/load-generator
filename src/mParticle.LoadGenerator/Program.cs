@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Net.Http;
 
 namespace mParticle.LoadGenerator
 {
@@ -56,7 +57,9 @@ namespace mParticle.LoadGenerator
         public static async void Run(Config config)
         {
             Stopwatch stopWatch = new Stopwatch();
-            IWebRequestHandler webRequestHandler = new WebRequestHandler();
+            HttpClient httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("X-Api-Key", config.AuthKey);
+            IWebRequestHandler webRequestHandler = new WebRequestHandler(httpClient, config.ServerURL);
             IWebRequestScheduler scheduler = new WebRequestScheduler(webRequestHandler, 1000);
             Console.CancelKeyPress += delegate(object sender, ConsoleCancelEventArgs e) {
                 scheduler.stop();

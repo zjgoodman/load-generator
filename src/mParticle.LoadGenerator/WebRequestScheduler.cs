@@ -33,7 +33,7 @@ namespace mParticle.LoadGenerator
                 var responseCodes = new List<Task<int>>();
                 for (int i = 0; i < numberOfCyclesToRun && continueRunning; i++)
                 {
-                    Console.WriteLine("Requesting " + i);
+                    Console.WriteLine("Making requests...");
                     var requests = MakeRequests(numberOfRequestsToMakePerCycle);
                     responseCodes.AddRange(requests);
                     Thread.Sleep(numberOfMilliSecondsToWaitBetweenCycles);
