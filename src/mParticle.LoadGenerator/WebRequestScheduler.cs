@@ -9,6 +9,9 @@ namespace mParticle.LoadGenerator
     {
         private IWebRequestHandler webRequestHandler;
         private int numberOfMilliSecondsToWaitBetweenCycles;
+
+        private volatile Boolean continueRunning = true;
+
         public WebRequestScheduler(IWebRequestHandler webRequestHandler, int numberOfMilliSecondsToWaitBetweenCycles)
         {
             this.webRequestHandler = webRequestHandler;
@@ -28,14 +31,20 @@ namespace mParticle.LoadGenerator
         {
             return Task.Run<List<Task<int>>>(() => {
                 var responseCodes = new List<Task<int>>();
-                for (int i = 0; i < numberOfCyclesToRun; i++)
+                for (int i = 0; i < numberOfCyclesToRun && continueRunning; i++)
                 {
+                    Console.WriteLine("Requesting " + i);
                     var requests = MakeRequests(numberOfRequestsToMakePerCycle);
                     responseCodes.AddRange(requests);
                     Thread.Sleep(numberOfMilliSecondsToWaitBetweenCycles);
                 }
                 return responseCodes;
             });
+        }
+
+        public void stop()
+        {
+            continueRunning = false;
         }
     }
 }

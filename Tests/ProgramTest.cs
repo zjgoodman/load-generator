@@ -23,6 +23,7 @@ namespace Tests
                 return responseCodes;
             });
         }
+        public void stop(){}
     }
     public class ProgramTest
     {
@@ -38,7 +39,7 @@ namespace Tests
             Assert.Equal(expectedNumberOfResults, results.Count);
         }
         [Fact]
-        public async void TestGetResults()
+        public void TestGetResults()
         {
             List<int> responses = new List<int> {200, 200, 500};
             Results results = Program.GetResults(responses);
