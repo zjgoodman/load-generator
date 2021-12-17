@@ -16,7 +16,7 @@ namespace mParticle.LoadGenerator
         }
         public Task<int> MakeRequest()
         {
-            string requestPayload = "{ \"name\": \"YOUR_NAME\", \"date\": \"NOW_IN_UTC\", \"requests_sent\": 0 }";
+            string requestPayload = "{ \"name\": \"YOUR_NAME\", \"date\": \"" + DateTime.UtcNow + "\", \"requests_sent\": 0 }";
             Task<HttpResponseMessage> responseTask = httpClient.PostAsync(url, new StringContent(requestPayload));
             return responseTask.ContinueWith(response => response.Result.IsSuccessStatusCode ? 200 : 500);
         }
